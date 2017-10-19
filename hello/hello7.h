@@ -12,7 +12,7 @@ private:
 public:
 	static int Total();
 	void run(int=1,int=1);
-	void operator!();
+	void operator*();
     Hello7(int v = 1) 
     : id{ v > 0 ? v : 1}
     {

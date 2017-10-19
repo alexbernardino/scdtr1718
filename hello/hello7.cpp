@@ -18,7 +18,7 @@ void Hello7::run(int l, int c) {
    }
 }
 
-void Hello7::operator!()
+void Hello7::operator*()
 {
 	run();
 }
