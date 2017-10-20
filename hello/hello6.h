@@ -24,4 +24,4 @@ public:
 	}
 };
 
-#endif //HELLO5_H
+#endif //HELLO6_H

@@ -25,4 +25,4 @@ public:
 	}
 };
 
-#endif //HELLO5_H
+#endif //HELLO7_H
