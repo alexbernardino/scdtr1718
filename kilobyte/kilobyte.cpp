@@ -5,13 +5,31 @@ class Kilobyte {
 private: 
    int memblock[1024];
 public:
-    Kilobyte() {
+    Kilobyte(int init_val = 0) {
        for(int i = 0; i < 1024; i++)
-          memblock[i] = 0;
+          memblock[i] = init_val;
        cout << "KB Ctor" << endl;
     }
     ~Kilobyte() {
        cout << "KB Dtor" << endl;
+    }
+    Kilobyte(const Kilobyte & kb) //copy constructor
+    {
+    	cout << "KB Copy Ctor" << endl;
+    }
+    Kilobyte & operator=(const Kilobyte & kb) //copy assignment
+    {
+       cout << "KB Copy Assignment" << endl;
+       return *this;
+    }
+    Kilobyte(const Kilobyte && kb) //move constructor
+    {
+    	cout << "KB Move Ctor" << endl;
+    }
+    Kilobyte & operator=(const Kilobyte && kb) //move assignment
+    {
+       cout << "KB Move Assignment" << endl;
+       return *this;
     }
     int get(int i) const   {
        if( i < 0 || i > 1023) return -1; 
@@ -27,19 +45,21 @@ public:
     }
 };
    
-Kilobyte neg(const Kilobyte & kb)
+Kilobyte neg(Kilobyte kb)
 {
-   Kilobyte res;                    //constructor of res
+   //Kilobyte res;                    //constructor of res
    for(int i = 0; i < 1024; i++)
-      res.set(i, -kb.get(i));
-   return res;                      //"move" return value
+      kb.set(i, -kb.get(i));
+   return kb;                      //"move" return value
 }	                                //destructor of res
 
 int main()
 {
    Kilobyte kb1;
    kb1.set(1000,10);
-   Kilobyte kb2 = neg(kb1);
+   Kilobyte kb2;
+   kb2 = std::move(kb1); //kb1 gets invalid
+   
    cout << kb1.get(1000) << endl;
    cout << kb2.get(1000) << endl;
 }

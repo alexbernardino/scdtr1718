@@ -34,7 +34,7 @@ public:
        cout << "Assign copy" << endl; 
        return *this; 
     }
-    Vector(Vector&& a)
+    Vector(Vector && a)
     : elem{a.elem}, // "grab the elements" from a 
       sz{a.sz} 
     { 
