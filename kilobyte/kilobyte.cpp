@@ -55,6 +55,7 @@ Kilobyte neg(Kilobyte kb)
 
 int main()
 {
+   cout << sizeof(float) << endl;
    Kilobyte kb1;
    kb1.set(1000,10);
    Kilobyte kb2;
