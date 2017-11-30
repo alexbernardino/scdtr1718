@@ -15,7 +15,7 @@ int main() {
     if( ec ) {cout << "Error"; return -1;}
     for (;;) {              
        string str;
-       getline(cin, str);
+       cin >> str;
        int nbytes = write(sp, boost::asio::buffer(str), ec ); 
        if( ec ) {cout << "Error"; return -1;}
        cout << "Wrote " << nbytes << " bytes to port" << endl; 

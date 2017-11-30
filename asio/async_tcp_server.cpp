@@ -1,27 +1,30 @@
-#include <memory>
+#include <iostream>
 #include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
-using namespace boost::asio;  
-using ip::tcp;
-using namespace std;
+#include <boost/shared_ptr.hpp>
 
-class connection :  public
-    boost::enable_shared_from_this<connection> {
+using namespace boost; 
+using namespace boost::asio; 
+using ip::tcp;
+
+class conn :  public enable_shared_from_this<conn> {
 private:  
-  tcp::socket sock_;
-  std::string msg_;
-  connection(io_service& io) :  sock_(io)  {}
-  void handle_write()   {/*nothing important*/}
+   	tcp::socket sock_;
+   	std::string msg_;
+   	conn(io_service& io) :  sock_(io)  {}
+   	void h_write()   {
+   		//do something to perpetuate connection
+   		//or close it cleanly
+   	}
 public: 
-    static shared_ptr<connection> create(io_service& io) {
-         return shared_ptr<connection>(new connection(io));
+	static shared_ptr<conn> create(io_service& io) {
+         return shared_ptr<conn>(new conn(io));
     }
     tcp::socket& socket() {return sock_;}
     void start() {
-        async_write(sock_,buffer("Hello World"),
-             boost::bind(&connection::handle_write,
-             shared_from_this())); 
+    	async_write(sock_,buffer("Hello World\n"),
+    		boost::bind(&conn::h_write, shared_from_this())); 
     }
 };
 class tcp_server {
@@ -34,13 +37,13 @@ public:
      }
 private:  
    void start_accept() {
-      shared_ptr<connection> new_con =
-            connection::create(acceptor_.get_io_service());
-       acceptor_.async_accept(new_con->socket(),
-       boost::bind(&tcp_server::handle_accept, this, new_con));
+       shared_ptr<conn> new_conn =
+            conn::create(acceptor_.get_io_service());
+       acceptor_.async_accept(new_conn->socket(),
+       boost::bind(&tcp_server::h_accept, this, new_conn));
    }
-  void handle_accept(shared_ptr<connection> new_con)  {
-         new_con->start();
+  void h_accept(shared_ptr<conn> new_conn)  {
+         new_conn->start();
          start_accept();
    }
 };

@@ -19,4 +19,5 @@ int main() {
   size_t len=socket.receive_from( buffer(recv_buf),sender);
   //write received data to console
   std::cout.write(recv_buf.data(), len);
+  std::cout << std::endl;
 }

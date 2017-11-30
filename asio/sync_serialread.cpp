@@ -14,10 +14,11 @@ int main() {
     sp.set_option(serial_port_base::baud_rate(9600), ec );
     if( ec ) { cout << "Error"; return -1; }
     for (;;) {           
-       boost::asio::streambuf str;
-       int nbytes = read_until(sp, str, '\n', ec );
+       boost::asio::streambuf streambuffer;
+       string str;
+       int nbytes = read_until(sp, streambuffer, '\n', ec );
        if( ec ) { cout << "Error"; return -1; }
        cout << "Received " << nbytes << " bytes from port: ";
-       cout << &str << endl;
+       cout << &streambuffer << endl;
     }  
 }  

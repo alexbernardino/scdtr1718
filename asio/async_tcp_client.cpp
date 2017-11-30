@@ -52,6 +52,7 @@ public:
 private:
   void start_connect(tcp::resolver::iterator endpoint_iter)
   {
+    std::cout << "start_connect" << std::endl;
     if (endpoint_iter != tcp::resolver::iterator())
     {
       std::cout << "Trying " << endpoint_iter->endpoint() << "...\n";
@@ -74,6 +75,7 @@ private:
   void handle_connect(const boost::system::error_code& ec,
       tcp::resolver::iterator endpoint_iter)
   {
+    std::cout << "handle_connect" << std::endl;
     if (stopped_)
       return;
 
@@ -116,6 +118,7 @@ private:
 
   void start_read()
   {
+    std::cout << "start_read" << std::endl;
     // Set a deadline for the read operation.
     deadline_.expires_from_now(boost::posix_time::seconds(30));
 

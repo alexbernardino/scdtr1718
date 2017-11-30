@@ -5,11 +5,9 @@ using namespace std;
 using namespace std::chrono;
 
 void concurrent_function(int samp_time_ms) {
-   steady_clock::time_point start_time = 
-      steady_clock::now();
+   steady_clock::time_point start_time = steady_clock::now();
    //milliseconds period(samp_time_ms);
-   steady_clock::time_point next_time = 
-      start_time + milliseconds(samp_time_ms);
+   steady_clock::time_point next_time = start_time + milliseconds(samp_time_ms);
    int counter = 0;
    while( ++counter < 10 ) {
       cout << counter << ": Hello from Child Thread # "

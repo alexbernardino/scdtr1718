@@ -20,9 +20,32 @@ public:
         cout << "Solid Move Assign" << endl;
         return *this;
     }
-    ~Solid()  {cout << "Solid Dtor" << endl;}
+    virtual ~Solid()  {cout << "Solid Dtor" << endl;}
     friend float Density(Solid &);
+    virtual float CalcMass() const = 0;
 };
+
+class A {
+public:
+    int a;
+    void f() {cout << "A::f()" << endl;}
+    virtual void v() {cout << "A::v()" << endl;}
+};
+
+class B : public A {
+public:
+    int b;
+    void f() {cout << "B::f()" << endl;}
+    void v() override {cout << "B::v()" << endl;}
+};
+
+class C : public B  {
+public:
+    int c;
+    void f() {cout << "C::f()" << endl;}
+    void v() override {cout << "C::v()" << endl;}
+};
+
 
 
 

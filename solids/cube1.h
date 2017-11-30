@@ -36,13 +36,14 @@ public:
         cout << "Cube Move Assign" << endl;
         return *this;
     }
-    ~Cube() {
+    ~Cube() override {
           cout << "Cube Dtor" << endl;
     }
-    float CalcMass(){
-         return _s*_s*_s*_d;
-    }
     friend bool SameVol(Cube &, Cylinder &);
+    float CalcMass() const override final
+    {
+        return _s*_s*_s*_d;
+    }
 };
 #endif //CUBE1_H
 
