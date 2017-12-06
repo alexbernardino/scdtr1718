@@ -7,6 +7,6 @@ set(SOURCE_FILES
         blocks1.cpp
         cube1.h
         cylinder1.h
-        solid1.h friends.h)
+        solid1.h friends.h totalmass.h)
 
 add_executable(solids ${SOURCE_FILES})

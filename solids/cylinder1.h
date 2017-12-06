@@ -42,13 +42,14 @@ public:
         cout << "Cylinder Move Assign" << endl;
         return *this;
     }
-    ~Cylinder() {
+    ~Cylinder() override {
         cout <<"Cylinder Dtor"<<endl;
     }
-    float CalcMass(){
+    friend bool SameVol(Cube &, Cylinder &);
+    float CalcMass() const override final
+    {
         return PI*_r*_r*_h*_d;
     }
-    friend bool SameVol(Cube &, Cylinder &);
 };
 #endif //CYLINDER1_H
 
