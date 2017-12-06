@@ -3,11 +3,9 @@
 #include <iostream>
 using namespace std;
 void concurrent_function(char ID)  {
-  int counter = 0; 
-  while(++counter  < 1000) {
-      cout << ID;
-      //this_thread::yield();
-   }
+  int counter = 0;
+  while(++counter)
+    cout << ID << " " << counter << endl;
 }
 
 int main()   {
@@ -24,12 +22,12 @@ int main()   {
   cout << "Created Child Thread 2 # "  << t2.get_id() << endl;
   
   h1 = t1.native_handle();
-  p1.sched_priority = 1;
-  pthread_setschedparam(h1, SCHED_RR, &p1);
+  p1.sched_priority = 0;
+  cout << pthread_setschedparam(h1, SCHED_IDLE, &p1) << endl;
   
   h2 = t2.native_handle();
   p2.sched_priority = 99;
-  pthread_setschedparam(h2, SCHED_RR, &p2);
+  cout << pthread_setschedparam(h2, SCHED_FIFO, &p2) << endl;
   
   t1.join(); //wait until t1 finishes
   t2.join(); //wait until t2 finishes
