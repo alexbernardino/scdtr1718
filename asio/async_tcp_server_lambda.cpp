@@ -50,4 +50,4 @@ int main()  try {
     io_service io;
     tcp_server server(io);
     io.run();
-} catch(std::exception &e) {std::cout << e.what()};
+} catch(std::exception &e) {std::cout << e.what();}
