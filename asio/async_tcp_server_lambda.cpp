@@ -43,11 +43,11 @@ private:
        	[this, new_conn](boost::system::error_code ec) {
        		new_conn->start();
          	start_accept();
-       });
+		});
    }
 };
-int main()  {
+int main()  try {
     io_service io;
     tcp_server server(io);
     io.run();
-}
+} catch(std::exception &e) {std::cout << e.what()};
