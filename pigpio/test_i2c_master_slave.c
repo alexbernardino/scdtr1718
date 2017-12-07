@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
 	int key  = 0;
 	int handle;
 	int status;
-	char command[2];
-    unsigned char value[4];
+	int length = 12; //11 chars + \0
+	char message[] = "Hello World";
     
 	if (gpioInitialise() < 0) { printf("Erro 1\n"); return 1;}
 	
@@ -50,9 +50,7 @@ int main(int argc, char *argv[])
 		for (i=0; i<4; i++)
         {
 			/* Master Transmit */
-            command[1] = 0x80;
-            command[0] = 0x40 | ((i + 1) & 0x03); // output enable | read input i
-			i2cWriteDevice(handle, command, 2);
+            i2cWriteDevice(handle, message, length);
 
 			usleep(20000);
             
@@ -61,7 +59,7 @@ int main(int argc, char *argv[])
             status = bscXfer(&xfer);
             printf("Received %d bytes\n", xfer.rxCnt);
             for(j=0;j<xfer.rxCnt;j++)
-		       printf("%02x.",xfer.rxBuf[j]);
+		       printf("%c",xfer.rxBuf[j]);
 	        printf("\n");
 		}
 		printf("Press q to quit. Any other ckey to continue.\n");
